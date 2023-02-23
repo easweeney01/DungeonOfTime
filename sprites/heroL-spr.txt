@@ -6,11 +6,11 @@ color green
 slowdown 4
 </HEADER>
 <BODY>
- o  
+  o 
 -/|\
  /\ 
 end
- o  
+  o 
 -/|\
   | 
 end
