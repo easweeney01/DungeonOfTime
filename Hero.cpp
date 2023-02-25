@@ -95,6 +95,11 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 		switch (p_keyboard_event->getKey()) {
 		case df::Keyboard::SPACE:       //Space (Time Stop)
 			LM.writeLog("ZA WARUDO!");
+
+			df::Event e = df::Event();
+			e.setType("Event_Stop");
+			GM.onEvent(&e);
+
 			break;
 		}
 	}
@@ -109,12 +114,12 @@ void Hero::mouse(const df::EventMouse* p_mouse_event) {
 void Hero::moveX(float dx) {
 	// If stays on window, allow move.
 	df::Vector new_pos(getPosition().getX() + dx, getPosition().getY());
-	if ((new_pos.getX() > 3) && (new_pos.getX() < WM.getBoundary().getHorizontal() - 1))
+	if ((new_pos.getX() > 1) && (new_pos.getX() < WM.getBoundary().getHorizontal() - 1))
 		WM.moveObject(this, new_pos);
 		LM.writeLog("Attempting to move");
 
 	// If stays on window, allow move.
-	if ((new_pos.getX() > 3) && (new_pos.getX() < WM.getBoundary().getHorizontal()))
+	if ((new_pos.getX() > 1) && (new_pos.getX() < WM.getBoundary().getHorizontal()))
 		WM.moveObject(this, new_pos);
 		LM.writeLog("Attempting to move");
 }
@@ -122,12 +127,11 @@ void Hero::moveX(float dx) {
 void Hero::moveY(float dy) {
 	// If stays on window, allow move.
 	df::Vector new_pos(getPosition().getX(), getPosition().getY() + dy);
-	if ((new_pos.getY() > 3) &&
-		(new_pos.getY() < WM.getBoundary().getVertical() - 1))
+	if ((new_pos.getY() > 1) && (new_pos.getY() < WM.getBoundary().getVertical() - 3))
 		WM.moveObject(this, new_pos);
 
 	// If stays on window, allow move.
-	if ((new_pos.getY() > 3) && (new_pos.getY() < WM.getBoundary().getVertical()))
+	if ((new_pos.getY() > 1) && (new_pos.getY() < WM.getBoundary().getVertical()))
 		WM.moveObject(this, new_pos);
 }
 

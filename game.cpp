@@ -8,7 +8,10 @@
 #include "ResourceManager.h"
 
 #include "Saucer.h"
+
 #include "Hero.h"
+#include "Wall.h"
+
 
 // Function prototypes.
 void loadResources(void);
@@ -49,10 +52,14 @@ void loadResources(void) {
   RM.loadSprite("sprites/saucer-spr.txt", "saucer");
   RM.loadSprite("sprites/heroL-spr.txt", "heroL");
   RM.loadSprite("sprites/heroR-spr.txt", "heroR");
+
+  RM.loadSprite("sprites/wall0-spr.txt", "wall0");
+  RM.loadSprite("sprites/wall1-spr.txt", "wall1");
+  RM.loadSprite("sprites/wall2-spr.txt", "wall2");
 }
 
 // Populate world with some objects.
 void populateWorld(void) {
-  new Saucer;
   new Hero;
+  new Wall;
 }

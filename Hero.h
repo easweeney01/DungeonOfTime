@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GameManager.h"
+
 #include "Object.h"
 
 #include "Event.h"
