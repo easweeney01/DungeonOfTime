@@ -11,6 +11,8 @@
 
 #include "Hero.h"
 #include "Wall.h"
+#include "Door.h"
+#include "Switch.h"
 
 
 // Function prototypes.
@@ -57,23 +59,40 @@ void loadResources(void) {
   RM.loadSprite("sprites/wall1-spr.txt", "wall1");
   RM.loadSprite("sprites/wall2-spr.txt", "wall2");
 
+  RM.loadSprite("sprites/door0-spr.txt", "door0");
+  RM.loadSprite("sprites/door1-spr.txt", "door1");
+  RM.loadSprite("sprites/switch0-spr.txt", "switch0");
+  RM.loadSprite("sprites/switch1-spr.txt", "switch1");
+
   RM.loadSprite("sprites/bullet0-spr.txt", "bullet0");
   RM.loadSprite("sprites/bullet1-spr.txt", "bullet1");
   RM.loadSprite("sprites/reticle-spr.txt", "reticle");
+
+  RM.loadSprite("sprites/ball-spr.txt", "ball");
+  RM.loadSprite("sprites/turret-spr.txt", "turret");
 }
 
 // Populate world with some objects.
 void populateWorld(void) {
   new Hero;
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 80; i++) {
       Wall* w = new Wall();
-      w->setPosition(df::Vector(10+i, 10));
+      w->setPosition(df::Vector(i, 0));
   }
+  for ( int i = 1; i < 25; i++ ) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(1, 0+i));
+  }
+  
 
   for (int i = 0; i < 10; i++) {
       Wall* w = new Wall();
       w->setPosition(df::Vector(30, 1+i));
       w->setWallType(1);
   }
+
+  Door* door = new Door(df::Vector(50,10));
+  Switch* swtc = new Switch(door);
+  swtc->setPosition(df::Vector(50,20));
 }

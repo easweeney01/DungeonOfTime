@@ -32,6 +32,7 @@ void Bullet::out() {
 }
 
 // If Bullet hits Wall and Wall type is not Blue, mark Bullet for deletion.
+// If Bullet hits Wall, mark Bullet for deletion and change trajectory of ball slightly.
 // If Bullet hits Turret, mark bullet for deletion and decrease HP by one.
 void Bullet::hit(const df::EventCollision* p_ce) {
 	if (p_ce->getObject1()->getType()=="Wall") {

@@ -45,7 +45,7 @@ Hero::~Hero() {
 
 //Mouse, Keyboard, and 
 int Hero::eventHandler(const df::Event* p_e) {
-	LM.writeLog("Event Recieved");
+	//LM.writeLog("Event Recieved");
 	if (p_e->getType() == df::KEYBOARD_EVENT) {
 
 		const df::EventKeyboard* p_keyboard_event = dynamic_cast <const df::EventKeyboard*> (p_e);
@@ -54,7 +54,7 @@ int Hero::eventHandler(const df::Event* p_e) {
 	}
 
 	if (p_e->getType() == df::STEP_EVENT) {
-		LM.writeLog("Stepping");
+		//LM.writeLog("Stepping");
 		step();
 		return 1;
 	}
@@ -74,7 +74,7 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 	bool release = (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED);
 
 	if (down) {
-		LM.writeLog("down");
+		//LM.writeLog("down");
 		switch (p_keyboard_event->getKey()) {
 		case df::Keyboard::W:       // up
 			moveY(-0.25);
@@ -97,7 +97,7 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 			break;
 		}
 	} else if (press) { //
-		LM.writeLog("press");
+		//LM.writeLog("press");
 		switch (p_keyboard_event->getKey()) {
 		case df::Keyboard::SPACE:       //Space (Time Stop)
 			if ( timeRemain <= 0 ) {
@@ -126,12 +126,12 @@ void Hero::moveX(float dx) {
 	df::Vector new_pos(getPosition().getX() + dx, getPosition().getY());
 	if ((new_pos.getX() > 1) && (new_pos.getX() < WM.getBoundary().getHorizontal() - 1))
 		WM.moveObject(this, new_pos);
-		LM.writeLog("Attempting to move");
+		//LM.writeLog("Attempting to move");
 
 	// If stays on window, allow move.
 	if ((new_pos.getX() > 1) && (new_pos.getX() < WM.getBoundary().getHorizontal()))
 		WM.moveObject(this, new_pos);
-		LM.writeLog("Attempting to move");
+		//LM.writeLog("Attempting to move");
 }
 
 void Hero::moveY(float dy) {
