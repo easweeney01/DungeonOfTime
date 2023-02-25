@@ -7,6 +7,7 @@
 Hero::Hero() {
 	hearts = 3;
 	inv = 30;
+	timeRemain = 0;
 
 	// Setup "saucer" sprite.
 	setSprite("heroR");
@@ -26,10 +27,16 @@ Hero::Hero() {
 	
 	setSolidness(df::HARD);
 
+	fire_slowdown = 15;
+	fire_countdown = fire_slowdown;
+
 	//Activates Interest
 	registerInterest(df::KEYBOARD_EVENT);
 	registerInterest(df::STEP_EVENT);
 	registerInterest(df::MSE_EVENT);
+
+	//Mouse
+	p_reticle = new Reticle();
 }
 
 Hero::~Hero() {
@@ -53,8 +60,7 @@ int Hero::eventHandler(const df::Event* p_e) {
 	}
 
 	if (p_e->getType() == df::MSE_EVENT) {
-		const df::EventMouse* p_mouse_event =
-			dynamic_cast <const df::EventMouse*> (p_e);
+		const df::EventMouse* p_mouse_event = dynamic_cast <const df::EventMouse*> (p_e);
 		mouse(p_mouse_event);
 		return 1;
 	}
@@ -94,11 +100,14 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 		LM.writeLog("press");
 		switch (p_keyboard_event->getKey()) {
 		case df::Keyboard::SPACE:       //Space (Time Stop)
-			LM.writeLog("ZA WARUDO!");
+			if ( timeRemain <= 0 ) {
+				LM.writeLog("ZA WARUDO!");
 
-			df::Event e = df::Event();
-			e.setType("Event_Stop");
-			GM.onEvent(&e);
+				timeRemain = 60;
+				df::Event e = df::Event();
+				e.setType("Event_TS_Stop");
+				GM.onEvent(&e);
+			}
 
 			break;
 		}
@@ -108,7 +117,8 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 }
 
 void Hero::mouse(const df::EventMouse* p_mouse_event) {
-
+	if ((p_mouse_event->getMouseAction() == df::CLICKED) && (p_mouse_event->getMouseButton() == df::Mouse::LEFT))
+		fire(p_mouse_event->getMousePosition());
 }
 
 void Hero::moveX(float dx) {
@@ -140,8 +150,21 @@ void Hero::step() {
 		inv--;
 	}
 
-	//df::Vector v = df::Vector(10,1);
-	//this->moveTo(v);
+	fire_countdown--;
+	if (fire_countdown < 0) {
+		fire_countdown = 0;
+	}
+
+	timeRemain--;
+	if (timeRemain == 1) {
+		LM.writeLog("Time Moves Again...");
+
+		df::Event e = df::Event();
+		e.setType("Event_TS_Start");
+		GM.onEvent(&e);
+	} else if ( timeRemain < 0 ) {
+		timeRemain = 0;
+	}
 }
 
 //Hearts and Invincible Frames
@@ -159,4 +182,19 @@ int Hero::getInv() {
 
 void Hero::setInv(int newI) {
 	inv = newI;
+}
+
+void Hero::fire(df::Vector target) {
+	if (fire_countdown > 0) {
+		return;
+	}
+	fire_countdown = fire_slowdown;
+
+	// Fire Bullet towards target.
+	// Compute normalized vector to position, then scale by speed (1).
+	df::Vector v = target - getPosition();
+	v.normalize();
+	v.scale(1);
+	Bullet* p = new Bullet(getPosition());
+	p->setVelocity(v);
 }

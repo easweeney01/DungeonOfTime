@@ -56,10 +56,24 @@ void loadResources(void) {
   RM.loadSprite("sprites/wall0-spr.txt", "wall0");
   RM.loadSprite("sprites/wall1-spr.txt", "wall1");
   RM.loadSprite("sprites/wall2-spr.txt", "wall2");
+
+  RM.loadSprite("sprites/bullet0-spr.txt", "bullet0");
+  RM.loadSprite("sprites/bullet1-spr.txt", "bullet1");
+  RM.loadSprite("sprites/reticle-spr.txt", "reticle");
 }
 
 // Populate world with some objects.
 void populateWorld(void) {
   new Hero;
-  new Wall;
+
+  for (int i = 0; i < 10; i++) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(10+i, 10));
+  }
+
+  for (int i = 0; i < 10; i++) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(30, 1+i));
+      w->setWallType(1);
+  }
 }

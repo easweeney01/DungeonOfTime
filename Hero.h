@@ -8,12 +8,19 @@
 #include "EventMouse.h"
 #include "EventKeyboard.h"
 #include "EventStep.h"
+#include "Bullet.h"
+#include "Reticle.h"
 
 class Hero : public df::Object {
 	private:
 		int hearts;
 		int inv;
 		int dir;
+		int fire_slowdown;
+		int fire_countdown;
+		
+		int timeRemain;
+		Reticle* p_reticle;
 
 	public:
 		Hero();
@@ -30,8 +37,10 @@ class Hero : public df::Object {
 		void kbd(const df::EventKeyboard* p_keyboard_event);
 		void step();
 
-		void moveX(float dy);
+		void moveX(float dx);
 		void moveY(float dy);
+
+		void fire(df::Vector target);
 };
 
 

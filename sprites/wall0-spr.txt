@@ -6,7 +6,7 @@ color yellow
 slowdown -1
 </HEADER>
 <BODY>
-#
+X
 end
 </BODY>
 <FOOTER>
