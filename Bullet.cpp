@@ -41,11 +41,19 @@ void Bullet::hit(const df::EventCollision* p_ce) {
 		if (p_wall->getWallType() != 1) {
 			WM.markForDelete(p_ce->getObject2());
 		}
+		return;
 	} else if (p_ce->getObject2()->getType() == "Wall") {
 		Wall* p_wall = dynamic_cast <Wall*> (p_ce->getObject2());
 
 		if (p_wall->getWallType() != 1) {
 			WM.markForDelete(p_ce->getObject1());
 		}
+		return;
+	}
+
+	if ( p_ce->getObject1()->getType() == "Ball" ) {
+		WM.markForDelete(p_ce->getObject2()); return;
+	} else if ( p_ce->getObject2()->getType() == "Ball" ) {
+		WM.markForDelete(p_ce->getObject1()); return;
 	}
 }

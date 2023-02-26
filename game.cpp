@@ -13,6 +13,7 @@
 #include "Wall.h"
 #include "Door.h"
 #include "Switch.h"
+#include "Ball.h"
 
 
 // Function prototypes.
@@ -84,6 +85,14 @@ void populateWorld(void) {
       Wall* w = new Wall();
       w->setPosition(df::Vector(1, 0+i));
   }
+  for ( int i = 0; i < 80; i++ ) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(i, 24));
+  }
+  for ( int i = 1; i < 25; i++ ) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(79, 0 + i));
+  }
   
 
   for (int i = 0; i < 10; i++) {
@@ -95,4 +104,6 @@ void populateWorld(void) {
   Door* door = new Door(df::Vector(50,10));
   Switch* swtc = new Switch(door);
   swtc->setPosition(df::Vector(50,20));
+
+  Ball* ball = new Ball(df::Vector(20,20));
 }

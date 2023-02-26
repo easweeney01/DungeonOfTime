@@ -3,6 +3,8 @@
 #include "LogManager.h"
 #include "ResourceManager.h"
 #include "WorldManager.h"
+#include "EventStop.h"
+#include "EventStart.h"
 
 Hero::Hero() {
 	hearts = 3;
@@ -27,7 +29,7 @@ Hero::Hero() {
 	
 	setSolidness(df::HARD);
 
-	fire_slowdown = 15;
+	fire_slowdown = 5;
 	fire_countdown = fire_slowdown;
 
 	//Activates Interest
@@ -101,12 +103,10 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 		switch (p_keyboard_event->getKey()) {
 		case df::Keyboard::SPACE:       //Space (Time Stop)
 			if ( timeRemain <= 0 ) {
-				LM.writeLog("ZA WARUDO!");
 
 				timeRemain = 60;
-				df::Event e = df::Event();
-				e.setType("Event_TS_Stop");
-				GM.onEvent(&e);
+				
+				WM.onEvent(new EventStop());
 			}
 
 			break;
@@ -157,11 +157,7 @@ void Hero::step() {
 
 	timeRemain--;
 	if (timeRemain == 1) {
-		LM.writeLog("Time Moves Again...");
-
-		df::Event e = df::Event();
-		e.setType("Event_TS_Start");
-		GM.onEvent(&e);
+		WM.onEvent(new EventStart());
 	} else if ( timeRemain < 0 ) {
 		timeRemain = 0;
 	}
