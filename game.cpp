@@ -7,13 +7,13 @@
 #include "LogManager.h"
 #include "ResourceManager.h"
 
-#include "Saucer.h"
-
 #include "Hero.h"
 #include "Wall.h"
 #include "Door.h"
 #include "Switch.h"
 #include "Ball.h"
+#include "Turret.h"
+#include "flag.h"
 
 
 // Function prototypes.
@@ -71,11 +71,12 @@ void loadResources(void) {
 
   RM.loadSprite("sprites/ball-spr.txt", "ball");
   RM.loadSprite("sprites/turret-spr.txt", "turret");
+  RM.loadSprite("sprites/flag-spr.txt", "flag");
 }
 
 // Populate world with some objects.
 void populateWorld(void) {
-  new Hero;
+  Hero* h = new Hero;
 
   for (int i = 0; i < 80; i++) {
       Wall* w = new Wall();
@@ -87,23 +88,48 @@ void populateWorld(void) {
   }
   for ( int i = 0; i < 80; i++ ) {
       Wall* w = new Wall();
-      w->setPosition(df::Vector(i, 24));
+      w->setPosition(df::Vector(i, 23));
   }
   for ( int i = 1; i < 25; i++ ) {
       Wall* w = new Wall();
       w->setPosition(df::Vector(79, 0 + i));
   }
-  
+  for ( int i = 1; i < 20; i++ ) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(60+i, 18));
+  }
+  for ( int i = 1; i < 30; i++ ) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(50 + i, 6));
+  }
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 17; i++) {
       Wall* w = new Wall();
       w->setPosition(df::Vector(30, 1+i));
       w->setWallType(1);
   }
+  for (int i = 0; i < 30; i++ ) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(30+i, 18));
+      w->setWallType(1);
+  }
+  for ( int i = 0; i < 30; i++ ) {
+      Wall* w = new Wall();
+      w->setPosition(df::Vector(30 + i, 13));
+      w->setWallType(1);
+  }
 
-  Door* door = new Door(df::Vector(50,10));
+  Door* door = new Door(df::Vector(70,20));
   Switch* swtc = new Switch(door);
-  swtc->setPosition(df::Vector(50,20));
+  swtc->setPosition(df::Vector(68,3));
 
-  Ball* ball = new Ball(df::Vector(20,20));
+  Turret* turret = new Turret();
+  turret->setPosition(df::Vector(75, 8));
+
+  Ball* ball = new Ball(df::Vector(40,15));
+
+  Turret* turretB = new Turret();
+  turretB->setPosition(df::Vector(75,3));
+
+  Flag* flag = new Flag(df::Vector(74, 20));
 }

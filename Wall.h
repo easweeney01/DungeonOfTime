@@ -2,6 +2,7 @@
 #include "Object.h"
 class Wall : public df::Object {
 	private:
+		//0 means regular walls, 1 means walls that bullets can go through, 2 is an unused type of "bouncy wall".
 		int wallType;
 	public:
 		Wall();

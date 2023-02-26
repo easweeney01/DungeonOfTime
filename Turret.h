@@ -3,15 +3,20 @@
 #include "Event.h"
 #include <Vector.h>
 #include "Bullet.h"
+
 #include <EventStep.h>
 
 class Turret : public df::Object {
 private:
+	//Mostly holdovers from player
 	int hearts;
 	int inv;
 	int fire_slowdown;
 	int fire_countdown;
 
+	//Whether time is paused.
+	bool pause;
+	//Where the target is aiming
 	df::Vector target;
 
 public:
@@ -28,4 +33,5 @@ public:
 	void step();
 
 	void fire();
+	void setTarget(df::Vector pos);
 };

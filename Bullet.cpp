@@ -1,8 +1,11 @@
 #include "Bullet.h"
 #include <WorldManager.h>
+#include "Hero.h"
 
 
 Bullet::Bullet(df::Vector hero_pos) {
+	allegiance = true;
+
 	setSolidness(df::SOFT);
 	setType("Bullet");
 	setSprite("bullet0");
@@ -56,4 +59,29 @@ void Bullet::hit(const df::EventCollision* p_ce) {
 	} else if ( p_ce->getObject2()->getType() == "Ball" ) {
 		WM.markForDelete(p_ce->getObject1()); return;
 	}
+
+	if ( p_ce->getObject1()->getType() == "Hero" ) {
+		if ( getAlly() != true ) {
+			WM.markForDelete(p_ce->getObject2()); return;
+
+			p_ce->getObject1()->setVelocity(df::Vector(getVelocity().getX()/2, getVelocity().getY() / 2));
+		}
+	}
+	else if ( p_ce->getObject2()->getType() == "Hero" ) {
+		if ( getAlly() != true ) {
+			WM.markForDelete(p_ce->getObject1()); return;
+
+			p_ce->getObject2()->setVelocity(df::Vector(getVelocity().getX() / 2, getVelocity().getY() / 2));
+		}
+	}
+}
+
+bool Bullet::getAlly() {
+	return allegiance;
+}
+
+void Bullet::setAlly(bool a) {
+	allegiance = a;
+
+
 }

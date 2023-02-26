@@ -88,23 +88,36 @@ void Ball::hit(const df::EventCollision* p_ce) {
 			setVelocity(df::Vector(vX, -vY));
 		}
 
-	} /*else if ( p_ce->getObject2()->getType() == "Wall" ) {
+	} else if ( p_ce->getObject1()->getType() == "Turret" || p_ce->getObject2()->getType() == "Turret" ) {
 		float vX = getVelocity().getX();
 		float vY = getVelocity().getY();
 		float pX = getPosition().getX();
 		float pY = getPosition().getY();
 
 		Object* wall = p_ce->getObject2();
+		if ( p_ce->getObject1()->getType() == "Turret" ) {
+			Object* wall = p_ce->getObject1();
+		}
+
 		//Get Horizontal and Vertical Distances
 		float dX = wall->getPosition().getX() - pX;
 		float dY = wall->getPosition().getY() - pY;
 
 		if ( dX < -0.5 && vX < 0 ) {
 			setVelocity(df::Vector(-vX, vY));
-		} else if ( dX > 0.5 && vX > 0 ) {
+		}
+		else if ( dX > 0.5 && vX > 0 ) {
 			setVelocity(df::Vector(-vX, vY));
 		}
-	}*/
+
+		if ( dY < -1 && vY < 0 ) {
+			setVelocity(df::Vector(vX, -vY));
+		}
+		else if ( dY > 1 && vY > 0 ) {
+			setVelocity(df::Vector(vX, -vY));
+		}
+
+	}
 }
 
 int Ball::eventHandler(const df::Event* p_e) {

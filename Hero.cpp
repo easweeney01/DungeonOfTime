@@ -5,10 +5,11 @@
 #include "WorldManager.h"
 #include "EventStop.h"
 #include "EventStart.h"
+#include "Turret.h"
 
 Hero::Hero() {
 	hearts = 3;
-	inv = 30;
+	inv = 0;
 	timeRemain = 0;
 
 	// Setup "saucer" sprite.
@@ -55,6 +56,12 @@ int Hero::eventHandler(const df::Event* p_e) {
 		return 1;
 	}
 
+	if ( p_e->getType() == df::COLLISION_EVENT ) {
+		const df::EventCollision* p_collision_event = dynamic_cast < const df::EventCollision* > ( p_e );
+		hit(p_collision_event);
+		return 1;
+	}
+
 	if (p_e->getType() == df::STEP_EVENT) {
 		//LM.writeLog("Stepping");
 		step();
@@ -71,6 +78,9 @@ int Hero::eventHandler(const df::Event* p_e) {
 }
 
 void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
+	if ( inv > 0 ) {
+		return;
+	}
 	bool down = (p_keyboard_event->getKeyboardAction() == df::KEY_DOWN);
 	bool press = (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED);
 	bool release = (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED);
@@ -111,12 +121,32 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 
 			break;
 		}
+	} else if ( release ) {
+		switch ( p_keyboard_event->getKey() ) {
+		case df::Keyboard::W:       // up
+			//selfReport();
+			break;
+
+		case df::Keyboard::S:       // down
+			//selfReport();
+			break;
+		case df::Keyboard::A:       // left
+			//selfReport();
+			break;
+		case df::Keyboard::D:       // right
+			//selfReport();
+			break;
+		}
 	}
 
 	return;
 }
 
 void Hero::mouse(const df::EventMouse* p_mouse_event) {
+	if ( inv > 0 ) {
+		return;
+	}
+
 	if ((p_mouse_event->getMouseAction() == df::CLICKED) && (p_mouse_event->getMouseButton() == df::Mouse::LEFT))
 		fire(p_mouse_event->getMousePosition());
 }
@@ -158,6 +188,7 @@ void Hero::step() {
 	timeRemain--;
 	if (timeRemain == 1) {
 		WM.onEvent(new EventStart());
+		selfReport();
 	} else if ( timeRemain < 0 ) {
 		timeRemain = 0;
 	}
@@ -178,6 +209,7 @@ int Hero::getInv() {
 
 void Hero::setInv(int newI) {
 	inv = newI;
+	LM.writeLog("Stunned");
 }
 
 void Hero::fire(df::Vector target) {
@@ -186,6 +218,7 @@ void Hero::fire(df::Vector target) {
 	}
 	fire_countdown = fire_slowdown;
 
+	selfReport();
 	// Fire Bullet towards target.
 	// Compute normalized vector to position, then scale by speed (1).
 	df::Vector v = target - getPosition();
@@ -193,4 +226,20 @@ void Hero::fire(df::Vector target) {
 	v.scale(1);
 	Bullet* p = new Bullet(getPosition());
 	p->setVelocity(v);
+}
+
+void Hero::selfReport() {
+	df::ObjectList turrets = WM.objectsOfType("Turret");
+	df::ObjectListIterator i(&turrets);
+	for ( i.first(); !i.isDone(); i.next() ) {
+		Turret* currTurr = dynamic_cast <Turret*> (i.currentObject());
+		currTurr->setTarget(getPosition());
+	}
+}
+
+void Hero::hit(const df::EventCollision* p_ce) {
+	if ( p_ce->getObject1()->getType() == "Flag" || p_ce->getObject2()->getType() == "Flag" ) {
+		GM.setGameOver();
+		return;
+	}
 }
