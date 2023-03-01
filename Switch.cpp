@@ -4,7 +4,7 @@
 #include <WorldManager.h>
 
 Switch::Switch(Door* d) {
-	setVelocity(df::Vector(0.001,0));
+	setVelocity(df::Vector(0.000001,0));
 	door = d;
 	onFor = 0;
 	pause = false;
@@ -22,12 +22,12 @@ Switch::Switch(Door* d) {
 
 int Switch::eventHandler(const df::Event* p_e) {
 	if ( p_e->getType() == df::STEP_EVENT ) {
-		getVelocity().setX(-1*getVelocity().getX());
+		setVelocity(df::Vector(-1 * getVelocity().getX(), getVelocity().getY()));
 
 		if (pause == true) {
-		} else if (onFor > 0) {
+		} else if (onFor > 1) {
 			onFor -= 1;
-		} else if (onFor < 0 || onFor == 0) {
+		} else if (onFor == 1) {
 			onFor = 0;
 			door->setOpen(false);
 			setSprite("switch0");
@@ -64,9 +64,11 @@ void Switch::hit(const df::EventCollision* p_ce) {
 		door->setOpen(true);
 		setSprite("switch1");
 		onFor = 30;
+		getVelocity().setX(-1 * getVelocity().getX());
 	} else if ( p_ce->getObject1()->getType() == "Ball" || p_ce->getObject2()->getType() == "Ball" ) {
 		door->setOpen(true);
 		setSprite("switch1");
 		onFor = 30;
+		getVelocity().setX(-1 * getVelocity().getX());
 	}
 }

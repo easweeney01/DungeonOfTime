@@ -72,20 +72,39 @@ void Ball::hit(const df::EventCollision* p_ce) {
 		} 
 
 		//Get Horizontal and Vertical Distances
-		float dX = wall->getPosition().getX() - pX;
-		float dY = wall->getPosition().getY() - pY;
+		float dX = wall->getPosition().getX() - pX; //Positive if wall is right, negative if wall is left
+		float dY = wall->getPosition().getY() - pY; //Positive if wall is below, negative if wall is above
 
-		if ( dX < -0.5 && vX < 0) {
-			setVelocity(df::Vector(-vX,vY));
-		} else if ( dX > 0.5 && vX > 0 ) {
-			setVelocity(df::Vector(-vX, vY));
-		}
+		Wall* b_wall = dynamic_cast <Wall* > (wall);
 
-		if (dY < -1 && vY < 0) {
-			setVelocity(df::Vector(vX, -vY));
-		}
-		else if (dY > 1 && vY > 0) {
-			setVelocity(df::Vector(vX, -vY));
+		if ( b_wall->getDir() == 0 ) {
+			if ( dX < -1 && vX < 0 ) {
+				setVelocity(df::Vector(-vX, vY));
+			}
+			else if ( dX > 1 && vX > 0 ) {
+				setVelocity(df::Vector(-vX, vY));
+			}
+
+			if ( dY < -1 && vY < 0 ) {
+				setVelocity(df::Vector(vX, -vY));
+			}
+			else if ( dY > 1 && vY > 0 ) {
+				setVelocity(df::Vector(vX, -vY));
+			}
+		} else if ( b_wall->getDir() == 1 ) {
+			if ( dY < -1 && vY < 0 ) {
+				setVelocity(df::Vector(vX, -vY));
+			}
+			else if ( dY > 1 && vY > 0 ) {
+				setVelocity(df::Vector(vX, -vY));
+			}
+		} else if ( b_wall->getDir() == 2 ) {
+			if ( dX < -1 && vX < 0 ) {
+				setVelocity(df::Vector(-vX, vY));
+			}
+			else if ( dX > 1 && vX > 0 ) {
+				setVelocity(df::Vector(-vX, vY));
+			}
 		}
 
 	} else if ( p_ce->getObject1()->getType() == "Turret" || p_ce->getObject2()->getType() == "Turret" ) {

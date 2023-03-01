@@ -6,6 +6,7 @@
 #include "EventStop.h"
 #include "EventStart.h"
 #include "Turret.h"
+#include "GameStart.h"
 
 Hero::Hero() {
 	hearts = 3;
@@ -239,7 +240,14 @@ void Hero::selfReport() {
 
 void Hero::hit(const df::EventCollision* p_ce) {
 	if ( p_ce->getObject1()->getType() == "Flag" || p_ce->getObject2()->getType() == "Flag" ) {
-		GM.setGameOver();
+		df::ObjectList gameStart = WM.objectsOfType("GameStart");
+		df::ObjectListIterator i(&gameStart);
+		for ( i.first(); !i.isDone(); i.next() ) {
+			GameStart* GS = dynamic_cast < GameStart* > ( i.currentObject() );
+			GS->nextLvl();
+			
+		}
+		
 		return;
 	}
 }
