@@ -157,7 +157,7 @@ void GameStart::kbd(const df::EventKeyboard* p_keyboard_event) {
 		switch ( p_keyboard_event->getKey() ) {
 		case df::Keyboard::SPACE:       // Start Game
 			if (!started) {
-				loadLvl(3);
+				loadLvl(1);
 			}
 			break;
 

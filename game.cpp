@@ -72,6 +72,11 @@ void loadResources(void) {
   RM.loadSprite("sprites/ball-spr.txt", "ball");
   RM.loadSprite("sprites/turret-spr.txt", "turret");
   RM.loadSprite("sprites/flag-spr.txt", "flag");
+
+  RM.loadSound("sounds/gun.wav","gun");
+  RM.loadSound("sounds/time.wav", "time");
+  RM.loadSound("sounds/whack.wav", "whack");
+  RM.loadSound("sounds/switch.wav", "switch");
 }
 
 // Populate world with some objects.

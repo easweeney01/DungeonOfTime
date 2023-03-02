@@ -1,65 +1,11 @@
 #include "Ball.h"
 #include "EventStop.h"
 #include "EventStart.h"
+#include <ResourceManager.h>
 
 void Ball::hit(const df::EventCollision* p_ce) {
 	float bW = 2;
-	switch ( pause ) {
-		case (false):
-			if ( p_ce->getObject1()->getType() == "Bullet" ) {
-				float vX = getVelocity().getX();
-				float vY = getVelocity().getY();
 
-				float bX = p_ce->getObject1()->getVelocity().getX() / bW;
-				float bY = p_ce->getObject1()->getVelocity().getY() / bW;
-
-				vX += bX;
-				vY += bY;
-
-				setVelocity(df::Vector(vX, vY));
-			}
-			else if ( p_ce->getObject2()->getType() == "Bullet" ) {
-				float vX = getVelocity().getX();
-				float vY = getVelocity().getY();
-
-				float bX = p_ce->getObject2()->getVelocity().getX() / bW;
-				float bY = p_ce->getObject2()->getVelocity().getY() / bW;
-
-				vX += bX;
-				vY += bY;
-
-				setVelocity(df::Vector(vX, vY));
-			}
-		break;
-
-		case (true):
-			if ( p_ce->getObject1()->getType() == "Bullet" ) {
-				float vX = getKinetic().getX();
-				float vY = getKinetic().getY();
-
-				float bX = p_ce->getObject1()->getVelocity().getX() / bW;
-				float bY = p_ce->getObject1()->getVelocity().getY() / bW;
-
-				vX += bX;
-				vY += bY;
-
-				setKinetic(df::Vector(vX, vY));
-			}
-			else if ( p_ce->getObject2()->getType() == "Bullet" ) {
-				float vX = getKinetic().getX();
-				float vY = getKinetic().getY();
-
-				float bX = p_ce->getObject2()->getVelocity().getX() / bW;
-				float bY = p_ce->getObject2()->getVelocity().getY() / bW;
-
-				vX += bX;
-				vY += bY;
-
-				setKinetic(df::Vector(vX, vY));
-			}
-		break;
-
-	}
 	if ( p_ce->getObject1()->getType() == "Wall" || p_ce->getObject2()->getType() == "Wall" ) {
 		float vX = getVelocity().getX();
 		float vY = getVelocity().getY();
@@ -106,7 +52,7 @@ void Ball::hit(const df::EventCollision* p_ce) {
 				setVelocity(df::Vector(-vX, vY));
 			}
 		}
-
+		return;
 	} else if ( p_ce->getObject1()->getType() == "Turret" || p_ce->getObject2()->getType() == "Turret" ) {
 		float vX = getVelocity().getX();
 		float vY = getVelocity().getY();
@@ -135,7 +81,72 @@ void Ball::hit(const df::EventCollision* p_ce) {
 		else if ( dY > 1 && vY > 0 ) {
 			setVelocity(df::Vector(vX, -vY));
 		}
+		return;
+	}
 
+	if ( !pause ) {
+		if ( p_ce->getObject1()->getType() == "Bullet" ) {
+			float vX = getVelocity().getX();
+			float vY = getVelocity().getY();
+
+			float bX = p_ce->getObject1()->getVelocity().getX() / bW;
+			float bY = p_ce->getObject1()->getVelocity().getY() / bW;
+
+			vX += bX;
+			vY += bY;
+
+			setVelocity(df::Vector(vX, vY));
+			df::Sound* p_sound = RM.getSound("whack");
+			if ( p_sound ) {
+				p_sound->play();
+			}
+
+		}
+		else if ( p_ce->getObject2()->getType() == "Bullet" ) {
+			float vX = getVelocity().getX();
+			float vY = getVelocity().getY();
+
+			float bX = p_ce->getObject2()->getVelocity().getX() / bW;
+			float bY = p_ce->getObject2()->getVelocity().getY() / bW;
+
+			vX += bX;
+			vY += bY;
+
+			setVelocity(df::Vector(vX, vY));
+
+			df::Sound* p_sound = RM.getSound("whack");
+			if ( p_sound ) {
+				p_sound->play();
+			}
+		}
+
+		
+	}
+	else {
+		if ( p_ce->getObject1()->getType() == "Bullet" ) {
+			float vX = getKinetic().getX();
+			float vY = getKinetic().getY();
+
+			float bX = p_ce->getObject1()->getVelocity().getX() / bW;
+			float bY = p_ce->getObject1()->getVelocity().getY() / bW;
+
+			vX += bX;
+			vY += bY;
+
+			setKinetic(df::Vector(vX, vY));
+		}
+		else if ( p_ce->getObject2()->getType() == "Bullet" ) {
+			float vX = getKinetic().getX();
+			float vY = getKinetic().getY();
+
+			float bX = p_ce->getObject2()->getVelocity().getX() / bW;
+			float bY = p_ce->getObject2()->getVelocity().getY() / bW;
+
+			vX += bX;
+			vY += bY;
+
+			setKinetic(df::Vector(vX, vY));
+		}
 	}
 }
 
@@ -163,6 +174,12 @@ int Ball::eventHandler(const df::Event* p_e) {
 	if ( p_e->getType() == TIMESTART_EVENT ) { //Grinds the ball to a halt
 		pause = false;
 		setVelocity(getKinetic());
+
+		if ( kinetic.getMagnitude() >= 0.5 || kinetic.getMagnitude() <= -0.5 ) {
+			df::Sound* p_sound = RM.getSound("whack");
+			if ( p_sound )
+				p_sound->play();
+		}
 		setKinetic(df::Vector(0, 0));
 		return 1;
 	}

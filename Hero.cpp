@@ -118,6 +118,9 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 				timeRemain = 60;
 				
 				WM.onEvent(new EventStop());
+				df::Sound* p_sound = RM.getSound("time");
+				if ( p_sound )
+					p_sound->play();
 			}
 
 			break;
@@ -227,6 +230,10 @@ void Hero::fire(df::Vector target) {
 	v.scale(1);
 	Bullet* p = new Bullet(getPosition());
 	p->setVelocity(v);
+
+	df::Sound* p_sound = RM.getSound("gun");
+	if ( p_sound )
+		p_sound->play();
 }
 
 void Hero::selfReport() {
