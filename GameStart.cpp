@@ -133,7 +133,38 @@ int GameStart::loadLvl(int lvl) {
 		Flag* flag = new Flag(df::Vector(74, 20));
 		return 1;
 	}
-	
+	else if ( lvl == 5 ) {
+		LM.writeLog("Level 3");
+		Hero* h3 = new Hero;
+		h3->setPosition(df::Vector(5,3));
+		makeBox();
+		
+		makeRow(10,5,false,60,0);
+		makeRow(10, 18, false, 27, 0);
+		makeRow(44, 18, false, 25, 0);
+		makeRow(10, 6, true, 13, 0);
+		makeRow(69, 6, true, 13, 1);
+
+		Ball* b3 = new Ball(df::Vector(13,10));
+		Turret* t3a = new Turret();
+		t3a->setPosition(df::Vector(13,16));
+
+		Turret* t3b = new Turret();
+		t3b->setPosition(df::Vector(66, 7));
+
+		Door* d3 = new Door(df::Vector(40, 16));
+		Switch* s3 = new Switch(d3);
+		s3->setPosition(df::Vector(48,16));
+		
+		Flag* f3 = new Flag(df::Vector(13,7));
+
+		//Maze
+		makeRow(30, 6, true, 6, 1);
+		makeRow(45, 10, true, 9, 1);
+		makeRow(45, 14, false, 10, 1);
+		
+		return 1;
+	}
 
 	return 0;
 }
@@ -230,7 +261,7 @@ void GameStart::makeRow(int X, int Y, bool vertical, int length, int type) {
 		Wall* wA = new Wall();
 		wA->setPosition(df::Vector(X, Y));
 		wA->setWallType(type);
-		wA->setDir(1);
+		wA->setDir(0);
 
 		for ( int i = 1; i < length-1; i++ ) {
 			Wall* w = new Wall();
@@ -242,12 +273,12 @@ void GameStart::makeRow(int X, int Y, bool vertical, int length, int type) {
 		Wall* wB = new Wall();
 		wB->setPosition(df::Vector(X+length-1, Y));
 		wB->setWallType(type);
-		wB->setDir(1);
+		wB->setDir(0);
 	} else {
 		Wall* wA = new Wall();
 		wA->setPosition(df::Vector(X, Y));
 		wA->setWallType(type);
-		wA->setDir(1);
+		wA->setDir(0);
 
 		for ( int i = 1; i < length-1; i++ ) {
 			Wall* w = new Wall();
@@ -259,6 +290,6 @@ void GameStart::makeRow(int X, int Y, bool vertical, int length, int type) {
 		Wall* wB = new Wall();
 		wB->setPosition(df::Vector(X, Y+length-1));
 		wB->setWallType(type);
-		wB->setDir(1);
+		wB->setDir(0);
 	}
 }

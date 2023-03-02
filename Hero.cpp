@@ -9,6 +9,10 @@
 #include "GameStart.h"
 
 Hero::Hero() {
+	df::Sound* p_sound = RM.getSound("woosh");
+	if ( p_sound )
+		p_sound->play();
+
 	hearts = 3;
 	inv = 0;
 	timeRemain = 0;

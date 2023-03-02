@@ -2,6 +2,7 @@
 #include "EventStop.h"
 #include "EventStart.h"
 #include <WorldManager.h>
+#include <ResourceManager.h>
 
 Switch::Switch(Door* d) {
 	setVelocity(df::Vector(0.000001,0));
@@ -61,11 +62,22 @@ int Switch::eventHandler(const df::Event* p_e) {
 
 void Switch::hit(const df::EventCollision* p_ce) {
 	if ( p_ce->getObject1()->getType() == "Hero" || p_ce->getObject2()->getType() == "Hero" ) {
+		if ( onFor < 28 ) {
+			df::Sound* p_sound = RM.getSound("switch");
+			if ( p_sound )
+				p_sound->play();
+		}
 		door->setOpen(true);
 		setSprite("switch1");
 		onFor = 30;
 		getVelocity().setX(-1 * getVelocity().getX());
 	} else if ( p_ce->getObject1()->getType() == "Ball" || p_ce->getObject2()->getType() == "Ball" ) {
+		if ( onFor < 28 ) {
+			df::Sound* p_sound = RM.getSound("switch");
+			if ( p_sound )
+				p_sound->play();
+		}
+
 		door->setOpen(true);
 		setSprite("switch1");
 		onFor = 30;

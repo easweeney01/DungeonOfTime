@@ -53,14 +53,14 @@ void Ball::hit(const df::EventCollision* p_ce) {
 			}
 		}
 		return;
-	} else if ( p_ce->getObject1()->getType() == "Turret" || p_ce->getObject2()->getType() == "Turret" ) {
+	} else if ( p_ce->getObject1()->getType() == "Turret" || p_ce->getObject2()->getType() == "Turret" || p_ce->getObject1()->getType() == "Door" || p_ce->getObject2()->getType() == "Door" ) {
 		float vX = getVelocity().getX();
 		float vY = getVelocity().getY();
 		float pX = getPosition().getX();
 		float pY = getPosition().getY();
 
 		Object* wall = p_ce->getObject2();
-		if ( p_ce->getObject1()->getType() == "Turret" ) {
+		if ( p_ce->getObject1()->getType() == "Turret" || p_ce->getObject1()->getType() == "Door" ) {
 			Object* wall = p_ce->getObject1();
 		}
 

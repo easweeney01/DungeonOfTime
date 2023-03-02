@@ -77,6 +77,7 @@ void loadResources(void) {
   RM.loadSound("sounds/time.wav", "time");
   RM.loadSound("sounds/whack.wav", "whack");
   RM.loadSound("sounds/switch.wav", "switch");
+  RM.loadSound("sounds/woosh.wav", "woosh");
 }
 
 // Populate world with some objects.
