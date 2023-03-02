@@ -16,7 +16,7 @@ slowdown 4
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
@@ -30,7 +30,7 @@ end
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
@@ -44,7 +44,7 @@ end
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
@@ -58,7 +58,7 @@ end
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
@@ -72,7 +72,7 @@ end
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
@@ -86,7 +86,7 @@ end
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
@@ -100,7 +100,7 @@ end
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
@@ -114,7 +114,7 @@ end
                                                 |___/                  
 Game by Manny Sweeney and Franky DiMise                                
 Press "SPACE" to start. Use "SPACE" to stop time and "CLICK" to shoot. 
-Press "BACKSPACE" to quit at any time.                                 
+Press "BACKSPACE" to quit at any time and "R" to reset.                
 CREDITS:Text to Ascii Art by patorjk.com, SFX made using Splice.       
 Dragonfly Engine by Mark Claypool.                                     
 end
