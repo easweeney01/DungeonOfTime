@@ -165,6 +165,11 @@ int GameStart::loadLvl(int lvl) {
 		
 		return 1;
 	}
+	else if ( lvl > 5) {
+		setVisible(true);
+		setSprite("gameover");
+		gameOverTimer = 120;
+	}
 
 	return 0;
 }
@@ -175,6 +180,16 @@ int GameStart::eventHandler(const df::Event* p_e) {
 
 		const df::EventKeyboard* p_keyboard_event = dynamic_cast < const df::EventKeyboard* > ( p_e );
 		kbd(p_keyboard_event);
+		return 1;
+	}
+
+	if ( p_e->getType() == df::STEP_EVENT ) {
+		if ( gameOverTimer == 1 ) {
+			GM.setGameOver();
+		} else if ( gameOverTimer > 0 ) {
+			gameOverTimer--;
+		}
+
 		return 1;
 	}
 
@@ -193,9 +208,14 @@ void GameStart::kbd(const df::EventKeyboard* p_keyboard_event) {
 			break;
 
 		case df::Keyboard::BACKSPACE:       // End Game
-			GM.setGameOver();
+			loadLvl(7);
+			break;
+
+		case df::Keyboard::R:       // End Game
+			loadLvl(lvl);
 			break;
 		}
+
 
 		return;
 	}

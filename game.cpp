@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
 // Load resources (sprites, sound effects, music).
 void loadResources(void) {
   RM.loadSprite("sprites/title-spr.txt", "title");
+  RM.loadSprite("sprites/gameover-spr.txt", "gameover");
   RM.loadSprite("sprites/heroL-spr.txt", "heroL");
   RM.loadSprite("sprites/heroR-spr.txt", "heroR");
 

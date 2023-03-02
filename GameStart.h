@@ -18,6 +18,7 @@ class GameStart : public df::Object {
 		int lvl;
 		void clearAllEntities();
 		bool started;
+		int gameOverTimer = 0;
 		
 		//Makes box around screen
 		void makeBox();

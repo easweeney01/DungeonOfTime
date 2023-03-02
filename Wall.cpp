@@ -52,6 +52,11 @@ int Wall::getWallType() {
 void Wall::setWallType(int w) {
 	wallType = w;
 	
+	if ( direction != 0 ) {
+		setSprite("wall2");
+		return;
+	}
+
 	switch (wallType) {
 		case (0): //Horizontal Normal
 			setSprite("wall0");
